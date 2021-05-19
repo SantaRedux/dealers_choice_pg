@@ -11,16 +11,16 @@ app.use(express.static('./public'));
 
 const { syncAndSeed, models: { Painting } } = require('./db.js');
 
-app.get('/', (req, res, next) => {
-    res.redirect('/sneakers');
-});
-
 app.get('/paintings', async (req, res, next) => {
     try {
         const paintings = await Painting.findAll();
         res.send(paintingsList);
     } catch (ex) { next(ex) }
 })
+
+app.get('/', (req, res, next) => {
+    res.redirect('/paintings');
+});
 
 app.get('/paintings/:id', async (req, res, next) => {
     try {
